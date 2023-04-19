@@ -47,7 +47,7 @@ public class SwitchPlayer : MonoBehaviour
             StepNo();
             
         }
-        if (Judge.Instance.whoStep == false)
+        if (!Judge.Instance.whoStep)
         {
             StepCross();
         }

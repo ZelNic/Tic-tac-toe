@@ -13,12 +13,12 @@ public class ActivatorTicTacToe : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (Judge.Instance.whoStep == true)
+        if (Judge.Instance.whoStep && Judge.Instance.isPlay)
         {
             ActiveNo();
         }
 
-        if (Judge.Instance.whoStep == false)
+        if (!Judge.Instance.whoStep && Judge.Instance.isPlay)
         {
             ActiveCross();
         }
