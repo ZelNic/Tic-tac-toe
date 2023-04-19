@@ -4,9 +4,9 @@ public delegate void SwitchPlayerDelegate();
 
 public class SwitchPlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject _cross;
-    [SerializeField] private GameObject _no;
-    public static bool _switchPlayer;
+    [SerializeField] private GameObject _crossSprite;
+    [SerializeField] private GameObject _noSprite;
+    
 
     private void Start()
     {
@@ -21,35 +21,35 @@ public class SwitchPlayer : MonoBehaviour
         int temp = Random.Range(0, 2);
         if (temp == 0)
         {
-            _switchPlayer = false;
+            Judge.Instance.whoStep = false;
             StepCross();
         }
         if (temp == 1)
         {
-            _switchPlayer = true;
+            Judge.Instance.whoStep = true;
             StepNo();
         }        
     }
     public void StepCross()
     {
-        _cross.SetActive(true);
-        _no.SetActive(false);
+        _crossSprite.SetActive(true);
+        _noSprite.SetActive(false);
     }
     public void StepNo()
     {
-        _cross.SetActive(false);
-        _no.SetActive(true);
+        _crossSprite.SetActive(false);
+        _noSprite.SetActive(true);
     }
     public void ChangeStatusSwitchPlayer()
     {
-        if (_switchPlayer == true)
+        if (Judge.Instance.whoStep == true)
         {
-            StepCross();
+            StepNo();
             
         }
-        if (_switchPlayer == false)
+        if (Judge.Instance.whoStep == false)
         {
-            StepNo();            
+            StepCross();
         }
     }    
 }

@@ -13,12 +13,12 @@ public class ActivatorTicTacToe : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (SwitchPlayer._switchPlayer == true)
+        if (Judge.Instance.whoStep == true)
         {
             ActiveNo();
         }
 
-        if (SwitchPlayer._switchPlayer == false)
+        if (Judge.Instance.whoStep == false)
         {
             ActiveCross();
         }
@@ -28,7 +28,7 @@ public class ActivatorTicTacToe : MonoBehaviour
         if (_noGO.activeInHierarchy == false && _crossGO.activeInHierarchy == false)
         {
             _noGO.SetActive(true);
-            SwitchPlayer._switchPlayer = false;            
+            Judge.Instance.whoStep = false;            
             Judge.Instance.AddInListNo(nameThisGO);
         }
     }
@@ -37,7 +37,7 @@ public class ActivatorTicTacToe : MonoBehaviour
         if (_crossGO.activeInHierarchy == false && _noGO.activeInHierarchy == false)
         {
             _crossGO.SetActive(true);
-            SwitchPlayer._switchPlayer = true;
+            Judge.Instance.whoStep = true;
             Judge.Instance.AddInListCross(nameThisGO);            
         }
     }
