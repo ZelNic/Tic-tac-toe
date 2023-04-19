@@ -3,11 +3,12 @@ using UnityEngine;
 public class ActivatorTicTacToe : MonoBehaviour
 {
     [SerializeField] private GameObject _crossGO;
-    [SerializeField] private GameObject _noGO;    
+    [SerializeField] private GameObject _noGO;
+    private string nameThisGO;
 
-    public void Update()
+    public void Awake()
     {
-        print(SwitchPlayer._switchPlayer);
+        nameThisGO = this.gameObject.name;
     }
 
     public void OnMouseDown()
@@ -27,16 +28,17 @@ public class ActivatorTicTacToe : MonoBehaviour
         if (_noGO.activeInHierarchy == false && _crossGO.activeInHierarchy == false)
         {
             _noGO.SetActive(true);
-            SwitchPlayer._switchPlayer = false;
+            SwitchPlayer._switchPlayer = false;            
+            Judge.Instance.AddInListNo(nameThisGO);
         }
     }
-
     public void ActiveCross()
     {
         if (_crossGO.activeInHierarchy == false && _noGO.activeInHierarchy == false)
         {
             _crossGO.SetActive(true);
             SwitchPlayer._switchPlayer = true;
+            Judge.Instance.AddInListCross(nameThisGO);            
         }
     }
 }

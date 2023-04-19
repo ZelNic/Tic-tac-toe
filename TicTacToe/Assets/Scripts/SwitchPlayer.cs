@@ -4,7 +4,6 @@ public delegate void SwitchPlayerDelegate();
 
 public class SwitchPlayer : MonoBehaviour
 {
-    public static event SwitchPlayerDelegate OnChangeStatusSwitchPlayer;
     [SerializeField] private GameObject _cross;
     [SerializeField] private GameObject _no;
     public static bool _switchPlayer;
@@ -12,10 +11,11 @@ public class SwitchPlayer : MonoBehaviour
     private void Start()
     {
         DecideWhoGoes();
-        OnChangeStatusSwitchPlayer += ChangeStatusSwitchPlayer;
     }
-
-
+    public void FixedUpdate()
+    {
+        ChangeStatusSwitchPlayer();
+    }
     private void DecideWhoGoes()
     {
         int temp = Random.Range(0, 2);
@@ -45,12 +45,11 @@ public class SwitchPlayer : MonoBehaviour
         if (_switchPlayer == true)
         {
             StepCross();
-            _switchPlayer = false;
+            
         }
         if (_switchPlayer == false)
         {
-            StepNo();
-            _switchPlayer = true;
+            StepNo();            
         }
     }    
 }
