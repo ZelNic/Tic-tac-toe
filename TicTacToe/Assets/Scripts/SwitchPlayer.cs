@@ -1,7 +1,5 @@
 using UnityEngine;
 
-public delegate void SwitchPlayerDelegate();
-
 public class SwitchPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject _crossSprite;
