@@ -543,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 1545555290}
   _noGO: {fileID: 772885753}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &331525662
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -644,6 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 182348701}
   _noGO: {fileID: 1789113819}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cross: {fileID: 1256648204}
   _no: {fileID: 1833926632}
+  _switchPlayer: 0
 --- !u!1 &713546753
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 1782803256}
   _noGO: {fileID: 730591953}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &713546756
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1136,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 2062807805}
   _noGO: {fileID: 225853526}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &773810688
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1379,6 +1384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 1036011286}
   _noGO: {fileID: 92515321}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &1028369106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1538,6 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 907822427}
   _noGO: {fileID: 797646650}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &1043669681
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2353,6 +2360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 1398251294}
   _noGO: {fileID: 1717894588}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &1749972669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2764,6 +2772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 1786130735}
   _noGO: {fileID: 1430104263}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &1861926667
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2923,6 +2932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crossGO: {fileID: 732281151}
   _noGO: {fileID: 267865654}
+  _cameraWithSwitchPlayer: {fileID: 519420028}
 --- !u!61 &2043527888
 BoxCollider2D:
   m_ObjectHideFlags: 0

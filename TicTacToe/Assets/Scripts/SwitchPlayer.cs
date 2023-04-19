@@ -4,20 +4,17 @@ public delegate void SwitchPlayerDelegate();
 
 public class SwitchPlayer : MonoBehaviour
 {
-    static public bool _switchPlayer;    
+    public static event SwitchPlayerDelegate OnChangeStatusSwitchPlayer;
     [SerializeField] private GameObject _cross;
     [SerializeField] private GameObject _no;
-    public Vector2 CurMousePos;
+    public static bool _switchPlayer;
 
     private void Start()
     {
         DecideWhoGoes();
+        OnChangeStatusSwitchPlayer += ChangeStatusSwitchPlayer;
     }
 
-    public void Update()
-    {
-        SelectBox();
-    }
 
     private void DecideWhoGoes()
     {
@@ -47,27 +44,13 @@ public class SwitchPlayer : MonoBehaviour
     {
         if (_switchPlayer == true)
         {
+            StepCross();
             _switchPlayer = false;
         }
         if (_switchPlayer == false)
         {
+            StepNo();
             _switchPlayer = true;
         }
-    }
-
-    public void SelectBox()
-    {
-        CurMousePos = Input.mousePosition;
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit2D rayHit = Physics2D.Raycast(CurMousePos,Vector2.zero);
-            if (rayHit.collider != null)
-            {
-                Debug.Log("Selected object: " + rayHit.collider.tag);
-            }
-                
-        }
-    }
-    
-
+    }    
 }
