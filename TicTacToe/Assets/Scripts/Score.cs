@@ -4,11 +4,9 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     [SerializeField] private Text _noScore;
-    [SerializeField] private Text _crossScore;
-    private int _countWinNo = 0;
-    private int _countWinCross = 0;
-    private int _totalScoreWinNo;
-    private int _totalScoreWinCross;
+    [SerializeField] private Text _crossScore;    
+    private int _totalScoreWinNo = 0;
+    private int _totalScoreWinCross = 0;
 
     private void Start()
     {
@@ -22,38 +20,46 @@ public class Score : MonoBehaviour
             _crossScore.text = _totalScoreWinCross.ToString();
 
         }
-        else _crossScore.text = _countWinCross.ToString();
+        else _crossScore.text = "0";
 
         if (PlayerPrefs.HasKey("TotalScoreWinNo"))
         {
             _totalScoreWinNo = PlayerPrefs.GetInt("TotalScoreWinNo", _totalScoreWinNo);
             _noScore.text = _totalScoreWinNo.ToString();
         }
-        else _noScore.text = _countWinNo.ToString();
+        else _noScore.text = "0";
     }
     public void ÑountNumberWinsNo()
     {
-        _countWinNo++;
         UpdateScoreNo();
     }
     public void ÑountNumberWinsCross()
-    {
-        _countWinCross++;
+    {        
         UpdateScoreCross();
     }
     public void UpdateScoreNo()
     {
-        _totalScoreWinNo += _countWinNo;
-        PlayerPrefs.SetInt("TotalScoreWinNo", _totalScoreWinNo);
-        PlayerPrefs.Save();
+        _totalScoreWinNo += 1;
         _noScore.text = _totalScoreWinNo.ToString();
+        PlayerPrefs.SetInt("TotalScoreWinNo", _totalScoreWinNo);
+        PlayerPrefs.Save();        
     }
 
     public void UpdateScoreCross()
     {
-        _totalScoreWinCross += _countWinCross;
-        PlayerPrefs.SetInt("TotalScoreWinCross", _totalScoreWinCross);
-        PlayerPrefs.Save();
+        _totalScoreWinCross += 1;
         _crossScore.text = _totalScoreWinCross.ToString();
+        PlayerPrefs.SetInt("TotalScoreWinCross", _totalScoreWinCross);
+        PlayerPrefs.Save();        
+    }
+
+    public void ResetTotalScoreForAllTime()
+    {
+        PlayerPrefs.DeleteAll();
+        _totalScoreWinCross = 0;
+        _totalScoreWinNo = 0;        
+        _crossScore.text = _totalScoreWinCross.ToString();
+        _noScore.text = _totalScoreWinNo.ToString();
     }
 }
+

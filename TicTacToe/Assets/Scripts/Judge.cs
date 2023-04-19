@@ -41,13 +41,11 @@ public class Judge : MonoBehaviour
     {
         if (flagWinNo == true && _flagWinCross == false)
         {
-            print("Победили нолики!");
             _score.СountNumberWinsNo();
             GetSetIsPlay();
         }
         if (flagWinNo == false && _flagWinCross == true)
         {
-            print("Победили крестики!");
             _score.СountNumberWinsCross();
             GetSetIsPlay();
         }
