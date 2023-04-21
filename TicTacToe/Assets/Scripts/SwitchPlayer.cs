@@ -1,33 +1,49 @@
+using System;
 using UnityEngine;
 
 public class SwitchPlayer : MonoBehaviour
 {
+    public static Action<string,bool> onGetStatusWhoStep;  
+    public static Func<bool> onSwitchPlayer;
     [SerializeField] private GameObject _crossSprite;
     [SerializeField] private GameObject _noSprite;
-    
+    private bool _crossOrOn;
+    public bool CrossOrOn
+    {
+        get { return _crossOrOn; }
+        set { _crossOrOn = value; }
+    }
 
     private void Start()
     {
         DecideWhoGoes();
     }
-    public void FixedUpdate()
+
+    public void Update()
     {
-        ChangeStatusSwitchPlayer();
+        print(CrossOrOn);
+    }
+
+    public void OnEnable()
+    {
+        ActivatorTicTacToe.onActive += SetStatus;
+        ActivatorTicTacToe.onSetStatus += ChangeStatusSwitchPlayer;
     }
     private void DecideWhoGoes()
     {
-        int temp = Random.Range(0, 2);
+        int temp = UnityEngine.Random.Range(0, 2);
         if (temp == 0)
         {
-            Judge.Instance.whoStep = false;
+            CrossOrOn = false;
             StepCross();
         }
         if (temp == 1)
         {
-            Judge.Instance.whoStep = true;
+            CrossOrOn = true;
             StepNo();
-        }        
+        }
     }
+    //вынести в отдельный скрипт
     public void StepCross()
     {
         _crossSprite.SetActive(true);
@@ -38,16 +54,21 @@ public class SwitchPlayer : MonoBehaviour
         _crossSprite.SetActive(false);
         _noSprite.SetActive(true);
     }
-    public void ChangeStatusSwitchPlayer()
+    public void ChangeStatusSwitchPlayer(bool value)
     {
-        if (Judge.Instance.whoStep == true)
-        {
+        if (value == true)
+        {                    
+            CrossOrOn = value;            
             StepNo();
-            
         }
-        if (!Judge.Instance.whoStep)
+        if (value == false)
         {
+            CrossOrOn = value;           
             StepCross();
         }
-    }    
+    }
+    public void SetStatus(string id)
+    {
+        onGetStatusWhoStep?.Invoke(id, CrossOrOn);       
+    }
 }

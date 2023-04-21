@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Judge : MonoBehaviour
 {
-    public static Judge Instance;
-    public bool whoStep;  // false - cross; true - no
+    public static Action<string, bool> onWriteStep;
+
     public bool isPlay;
 
     private string[] codeMove = { "147", "258", "369", "789", "456", "123", "357", "159" };
@@ -16,43 +17,53 @@ public class Judge : MonoBehaviour
 
     private int _countStep;
     private bool _drow;
-    public bool flagWinNo;
-    public bool _flagWinCross;
-
-    [SerializeField] private GameObject _cameraWithScoreS;
-    private Score _score;
-    private GameManager _gameManager;
+    private bool _flagWinNo;
+    private bool _flagWinCross;
+    
 
     private void Awake()
     {
-        Instance = this;
-        isPlay = true;
-        _gameManager = GetComponent<GameManager>();
-        _score = _cameraWithScoreS.GetComponent<Score>();
+        isPlay = true;       
     }
 
-    public void GetSetIsPlay()
+    private void OnEnable()
+    {
+        onWriteStep += AddInList;
+        GameManager.onSetActiveTrue += ResetFields;     
+    }
+
+    private void ResetFields(bool value)
+    {
+        _moveLogListCross.Clear();
+        _moveLogListNo.Clear();
+        _countStep = 0;
+        _drow = false;
+        _flagWinNo = false;
+        _flagWinCross = false;
+        isPlay = true;
+    }
+
+    public void ResetGame()
     {
         isPlay = false;
-        _gameManager.SubmitRequestForRestart();
+        GameManager.onRestartGame?.Invoke();
     }
 
     public void CheckWhoWin()
     {
-        if (flagWinNo == true && _flagWinCross == false)
+        if (_flagWinNo == true && _flagWinCross == false)
         {
-            _score.ÑountNumberWinsNo();
-            GetSetIsPlay();
+            Score.onIncreaseScore(true);
+            ResetGame();
         }
-        if (flagWinNo == false && _flagWinCross == true)
+        if (_flagWinNo == false && _flagWinCross == true)
         {
-            _score.ÑountNumberWinsCross();
-            GetSetIsPlay();
+            Score.onIncreaseScore(false);
+            ResetGame();
         }
-        if (_drow == true && flagWinNo == false && _flagWinCross == false)
+        if (_drow == true && _flagWinNo == false && _flagWinCross == false)
         {
-            print("Íè÷üÿ");
-            GetSetIsPlay();
+            ResetGame();
         }
     }
 
@@ -66,23 +77,29 @@ public class Judge : MonoBehaviour
         }
     }
 
-    public void AddInListCross(string nameGO)
+    public void AddInList(string id, bool value)
     {
-        _moveLogListCross.Add(nameGO);
-        _codeCrossLog = null;
-        for (int j = 0; j < _moveLogListCross.Count; j++)
-            _codeCrossLog += _moveLogListCross[j];
-        CheckSteps(false);
-        ToCountStep();
-    }
-    public void AddInListNo(string nameGO)
-    {
-        _moveLogListNo.Add(nameGO);
-        _codeNoLog = null;
-        for (int j = 0; j < _moveLogListNo.Count; j++)
-            _codeNoLog += _moveLogListNo[j];
-        CheckSteps(true);
-        ToCountStep();
+        switch (value)
+        {
+            case true:
+                _moveLogListCross.Add(id);
+                _codeCrossLog = null;
+                for (int j = 0; j < _moveLogListCross.Count; j++)
+                    _codeCrossLog += _moveLogListCross[j];
+                CheckSteps(false);
+                ToCountStep();
+                break;
+
+            case false:
+
+                _moveLogListNo.Add(id);
+                _codeNoLog = null;
+                for (int j = 0; j < _moveLogListNo.Count; j++)
+                    _codeNoLog += _moveLogListNo[j];
+                CheckSteps(true);
+                ToCountStep();
+                break;
+        }
     }
 
     public void CheckSteps(bool value)
@@ -119,7 +136,7 @@ public class Judge : MonoBehaviour
                             coinCidenceNo++;
                             if (coinCidenceNo == 3)
                             {
-                                flagWinNo = true;
+                                _flagWinNo = true;
                                 CheckWhoWin();
                             }
                         }
